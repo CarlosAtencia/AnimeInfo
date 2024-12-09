@@ -1,0 +1,124 @@
+
+/* Nav desktop */
+
+.desktop-nav {
+    display: block;
+    z-index: 1001;
+}
+
+.desktop-nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+}
+
+.desktop-nav ul li {
+    margin-left: 1.5em;
+}
+
+.desktop-nav ul li a {
+    text-decoration: none;
+    color: var(--black);
+    font-size: 1.2em;
+}
+
+/* Icono y menu hamburguesa para mobile */
+.menu-icon {
+    display: none;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.bar {
+    display: block;
+    width: 30px;
+    height: 4px;
+    margin: 5px auto;
+    background-color: var(--white) ;
+    transition: all 0.3s ease;
+}
+
+/* Nav mobile */
+.mobile-nav {
+    position: fixed;
+    top: 0px;
+    right: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: var(--delft-blue);
+    z-index: 1000;
+    transition: right 0.3s ease-in-out;
+    padding-top: 80px;
+}
+
+/* Nav mobile activo */
+.mobile-nav.active {
+    right: 0;
+}
+
+.mobile-nav ul {
+    list-style: none;
+    text-align: center;
+}
+
+.mobile-nav ul li {
+    margin: 1.5em 0;
+}
+
+.mobile-nav ul li a {
+    text-decoration: none;
+    color: var(--white) ;
+    font-size: 1.2em;
+}
+
+
+/* Menu hamburguesa */
+
+/* Mobile */
+@media (max-width: 768px) {
+    /* Ocultamos el menu desktop */
+    .desktop-nav {
+        display: none;
+    }
+
+    /* Mostramos el icono de menu hamburguesa en mobile */
+    .menu-icon {
+        display: block;
+        margin-right: 1em;
+    }
+
+    /* Cambiamos las barras a forma de X cuando se active el menu */
+    .menu-icon.active .bar:nth-child(1) {
+        transform: rotate(45deg) translate(6.25px, 6.25px);
+    }
+
+    .menu-icon.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-icon.active .bar:nth-child(3) {
+        transform: rotate(-45deg) translate(6.25px, -6.25px);
+    }
+
+    /* Ocultamos el menu mobile inicialmente */
+    .mobile-nav {
+        right: -250px;
+    }
+
+    /* Mostramos el menu mobile cuando esté activo */
+    .mobile-nav.active {
+        right: 0;
+    }
+}
+
+/* Desktop */
+@media (min-width: 769px) {
+    /* Ocultamos el menú móvil y el icono del menu hamburguesa en desktop */
+    .mobile-nav {
+        display: none;
+    }
+
+    .menu-icon {
+        display: none;
+    }
+}

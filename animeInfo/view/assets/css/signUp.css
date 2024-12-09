@@ -1,0 +1,169 @@
+
+/* Minimo ocupa todo el navegador en altura */
+
+/* Aseguramos que el body cubra toda la ventana */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--space-cadet);
+    background-image: url("https://www.transparenttextures.com/patterns/navy.png");
+    overflow-y: hidden;
+}
+
+/* Fondo aleatorio de login y sign up */
+
+/* Imagen de fondo */
+
+.backgroundImage {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-position: center center; 
+    background-repeat: no-repeat; 
+    background-size: cover;
+    z-index: -1;
+}
+
+/* Efecto oscuro para el fondo */
+
+.backgroundImage::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+/* Coge todo el espacio del navegador excepto el que tiene el header y footer */
+
+main {
+    flex-grow: 1;
+}
+
+/* Div del cuadro principal signUp */
+
+.containerSection {
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    background-color: var(--white);
+    box-shadow: 0 0 5px var(--black);
+    margin: 50px auto;
+}
+
+.containerSectionHeader {
+    width: 100%;
+    display: flex;
+    font-family: Lato-Regular, Arial, Helvetica, sans-serif;
+    text-align: center;
+    justify-content: space-around;
+    color: var(--white) ;
+    background-color: var(--jet) ;
+    box-shadow: 0 0 5px var(--black);
+    border-top-left-radius: 17.5px;
+    border-top-right-radius: 17.5px;
+    padding: 20px;
+}
+
+.containerSectionHeader a, form input, form label {
+    font-family: Lato-Regular, Arial, Helvetica, sans-serif;
+    margin: 5px;
+}
+
+.containerSectionHeader a {
+    color: var(--white);
+    font-size: 16pt;
+}
+
+.containerSectionHeader a:first-of-type {
+    text-decoration: none;
+    transition: all ease-in-out 0.3s;
+}
+
+.containerSectionHeader a:first-of-type:hover {
+    font-family: Lato-Bold, Arial, Helvetica, sans-serif ;
+    text-decoration: underline;
+}
+
+/* Formulario del cuadro signUp */
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+label {
+    font-size: 12pt;
+}
+
+input {
+    border-radius: 20px;
+    box-shadow: 0 0 5px var(--black);
+    padding: 1px 5px;
+    width: 300px;
+}
+
+input[type="submit"]{
+    width: 150px;
+    background-color: var(--mikado-yellow);
+    box-shadow: 0 0 5px var(--black);
+    margin: 20px auto 10px auto;
+    padding: 7.5px;
+    transform: scale(1);
+    transition: all 0.5s;
+}
+
+input[type="submit"]:hover {
+    transform: scale(1.15);
+}
+
+.errorMessage {
+    color: var(--engineering-orange);
+    font-size: 7.5pt;
+    margin-top: 5px;
+    display: block;
+}
+
+.inputError {
+    border: 2px solid var(--engineering-orange);
+}
+
+.text {
+    text-align: center;
+    font-family: Lato-Regular, Arial, Helvetica, sans-serif;
+    padding: 0 10px 10px 10px;
+}
+
+@media (min-width: 769px) {
+
+    form {
+        margin: 20px 80px;
+    }
+
+    .containerSection {
+        width: 600px;
+    }
+
+    label {
+        font-size: 13pt;
+    }
+
+    input{
+        width: 500px;
+        margin: 20px auto 10px auto;
+        padding: 0.5 5px;
+    }
+    
+    .errorMessage {
+        font-size: 9pt;
+    }
+
+}

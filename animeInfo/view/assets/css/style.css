@@ -1,0 +1,146 @@
+
+:root {
+
+    /* Colores principales */
+
+    --black: black;
+    --white-smoke: #f3f3f3;
+    --white: white ;
+    --space-cadet:#2D2850;
+    --delft-blue:#423A73;
+    --mikado-yellow:#FFC800;
+    --spring-green :#53FB83;
+
+    /* Colores secundarios */
+
+    --battleship-gray :#888;
+    --jet: #333;
+    --dark-moss-green : #3D642A ;
+    --lapis-lazuli : #135987 ;
+    --ucla-blue :#2E729F;
+    --turkey-red: #AB0C00 ;
+    --barn-red: #760800 ;
+    --persian-pink: #F481C0 ;
+
+    /* Colores en hover */
+
+    --lapis-lazuli-hover : #0862A1;
+    --ucla-blue-hover :#2274AB;
+    --engineering-orange: #D10F00 ;
+    --persian-pink-hover : #FF7ABF ;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+/* Botones en modales y borrar contenido */
+
+.btnAcceptCancel {
+    font-family: Lato-Regular, Arial, Helvetica, sans-serif;
+    border-radius: 20px;
+    box-shadow: 0px 0px 5px var(--black);
+    padding: 5px 10px;
+}
+
+.acceptButton {
+    background-color: var(--lapis-lazuli) ;
+    transition: background-color 0.3s ease-in-out;
+    color: var(--white);
+}
+
+.acceptButton:hover{
+    background-color: var(--lapis-lazuli-hover) ;
+}
+
+.cancelButton {
+    background-color: var(--mikado-yellow);
+    color: var(--black);
+}
+
+.deleteButton {
+    background-color: var(--turkey-red);
+    color: var(--white) ;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.deleteButton:hover {
+    background-color: var(--engineering-orange);
+    color: var(--white) ;
+}
+
+
+/* COOKIES */
+
+/* Fondo oscuro de cookies */
+.cookie-fondoCookies {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+}
+
+/* Cuadro de cookies */
+.cookie-divCookies {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--white-smoke);
+    color: var(--black);
+    text-align: center;
+    padding: 20px;
+    z-index: 9999;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px var(--white);
+}
+
+.cookie-divCookies .acceptButton {
+    margin: 10px;
+}
+
+/* Fuentes */
+
+/* ASAP */
+
+@font-face {
+    font-family: Asap;
+    src: url(../fonts/Asap-VariableFont_wdth\,wght.ttf);
+}
+
+/* CHICLE */
+
+@font-face {
+    font-family: Chicle;
+    src: url(../fonts/Chicle-Regular.ttf);
+}
+
+/* LATO */
+
+@font-face {
+    font-family: Lato-Regular;
+    src: url(../fonts/Lato-Regular.ttf);
+}
+
+@font-face {
+    font-family: Lato-Bold;
+    src: url(../fonts/Lato-Bold.ttf);
+}
+
+/* VIETNAM */
+
+@font-face {
+    font-family: Vietnam;
+    src: url(../fonts/BeVietnamPro-Regular.ttf);
+}
+
+@font-face {
+    font-family: VietnamBold;
+    src: url(../fonts/BeVietnamPro-Bold.ttf);
+}

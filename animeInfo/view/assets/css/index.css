@@ -1,0 +1,179 @@
+
+/* Minimo que ocupe el body toda la altura de ventana */
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--space-cadet);
+    background-image: url("https://www.transparenttextures.com/patterns/navy.png");
+}
+
+/* Hago que el main coja todo el espacio posible, dejando pegado arriba el header y abajo pegado el footer */
+
+main {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+/* Espacio para la lupa dentro del input */
+
+section .search-input {
+    padding-left: 75px;
+}
+
+/* Icono de lupa */
+
+.search-icon {
+    font-size: 1rem;
+    color: var(--battleship-gray);
+    top: 20px;
+    left: 27.5px;
+    transform: translateY(-50%) rotateZ(90deg);
+}
+
+.search-input,.select,.option {
+    font-family: Lato-Regular, Arial, Helvetica, sans-serif;
+}
+
+.search-input::placeholder {
+    font-family: Lato-Regular, Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    color: var(--black);
+    opacity: 1;
+}
+
+.select {
+    color: var(--black);
+}
+
+.option {
+    width: 100%;
+    color: var(--black);
+}
+
+.genero, .tipo, .ordenar {
+    color: var(--black);
+}
+
+.container-fluid {
+    width: 90vw;
+}
+
+.containerAnime {
+    display: grid;
+    gap: 48px ;
+    margin: 0 auto;
+}
+
+/* Div de cada anime */
+
+.anime {
+    width: 100%;
+    text-align: center;
+    transition: transform 0.4s ease-in-out;
+    margin: 0px auto;
+}
+
+/* Portada de cada anime */
+
+.anime img {
+    height: 320px;
+    width: 200px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px var(--battleship-gray);
+    margin: 10px;
+    transition: all 0.4s ease-in-out;
+}
+
+/* Titulo de cada anime */
+
+.anime h5 {
+    color: var(--white-smoke);
+    font-family: Asap, Arial, Helvetica, sans-serif ;
+    font-weight: 500;
+    margin: 0px 10px;
+    transition: all 0.4s ease-in-out;
+}
+
+/* Transiciones para el cuadro del anime, imagen y titulo */
+
+.anime:hover {
+    transform: scale(1.05);
+}
+
+.anime:hover img {
+    box-shadow: 0 0 10px var(--mikado-yellow);
+}
+
+.anime:hover h5 {
+    color: var(--mikado-yellow);
+}
+
+/* Boton para ver mas animes */
+
+.verMas {
+    font-family: Lato-Regular, Arial, Helvetica, sans-serif;
+    font-size: 18pt;
+    background-color: var(--mikado-yellow);
+    box-shadow: 0 0 2px var(--black);
+    color: var(--black);
+    padding: 10px 40px;
+    border-radius: 30px;
+    transform: scale(1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.verMas:hover {
+    transform: scale(1.15);
+}
+
+.text {
+    font-family: Lato-Regular, Arial, Helvetica, sans-serif;
+    background-color: var(--white-smoke);
+    box-shadow: 0px 0px 5px var(--white);
+    padding: 20px;
+    border-radius: 20px;
+    margin: 0px auto;
+    width: 300px;
+}
+
+/* Media */
+
+@media (max-width: 575px) {
+    .containerAnime {
+        grid-template-columns: 1fr;
+    }
+
+    .genero,.tipo,.ordenar {
+        font-size: 11pt;
+    }
+
+}
+
+@media (min-width: 576px) and (max-width: 819px) {
+    .containerAnime {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 820px) and (max-width: 1089px) {
+    .containerAnime {
+        grid-template-columns: repeat(3,1fr);
+    }
+}
+
+@media (min-width: 1090px) and (max-width: 1399px) {
+    .containerAnime {
+        grid-template-columns: repeat(4,1fr);
+    }
+}
+
+@media (min-width: 1400px) {
+    .containerAnime {
+        grid-template-columns: repeat(5,1fr);
+        justify-content: center;
+    }
+}
+

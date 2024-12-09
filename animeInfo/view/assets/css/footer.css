@@ -1,0 +1,98 @@
+
+
+/* El footer se mantiene pegado abajo de la página aunque tenga scroll */
+
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color: var(--white);
+    background-color: var(--delft-blue);
+    box-shadow: 0px 0px 10px var(--black);
+    text-align: center;
+    padding: 10px 20px;
+}
+
+footer span {
+    font-family: Chicle;
+    letter-spacing: 2px;
+    font-size: 10pt;
+}
+
+footer div {
+    display: flex;
+    justify-content: space-around;
+    width: 200px;
+    margin: 0 10px 0 10px;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+.privacyPolicy {
+    text-decoration: none;
+    color: var(--white);
+    font-size: 10pt;
+}
+
+.icon-btn {
+    box-shadow: 0px 0px 10px var(--black);
+    font-size: 10pt;
+    padding: 2.5px 5px;
+    border-radius: 20px;
+}
+
+.icon-btn i {
+    color: var(--white) ;
+}
+
+.instagram {
+    background: #d6249f;
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+}
+
+.mail {
+    background:linear-gradient(120deg, #122B40, #446CB3);
+}
+
+.github {
+    background:linear-gradient(to right, #040404, #000000, #656565);
+}
+
+footer p {
+    font-size: 8pt;
+}
+
+@media (min-width: 769px){
+
+    .privacyPolicy {
+        text-decoration: none;
+        color: var(--white);
+        font-size: 14pt;
+    }
+    
+    .icon-btn {
+        font-size: 16pt;
+        padding: 5px 10px;
+        border-radius: 20px;
+    }
+
+    footer {
+        justify-content: space-between;
+    }
+    footer span {
+        font-size: 14pt;
+    }
+
+    footer div {
+        margin: 0;
+    }
+
+    footer p {
+        font-size: 11pt;
+    }
+}

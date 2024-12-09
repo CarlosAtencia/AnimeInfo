@@ -1,0 +1,151 @@
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--space-cadet);
+background-image: url("https://www.transparenttextures.com/patterns/navy.png");
+}
+
+.article {
+    width: 90vw;
+    border-radius: 20px;
+    box-shadow: 0 0 5px var(--white);
+    background-color: var(--white-smoke);
+    padding: 10px;
+    margin: 30px auto;
+}
+
+
+main {
+    flex-grow: 1;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+}
+
+h1 {
+    font-family: Asap, Arial, Helvetica, sans-serif ;
+    font-weight: 500;
+    text-align: center;
+    color: var(--black);
+}
+
+/* Contenido Cuadro de header de listas */
+
+.containerHeader div div {
+    font-family: Asap, Arial, Helvetica, sans-serif ;
+    font-weight: 500;
+    font-size: 14pt;
+    color: var(--black);
+}
+
+.containerSection {
+    background-color: var(--white) ;
+    border-radius: 20px;
+    box-shadow: 0 0 5px var(--black);
+}
+
+/* Contenido del cuadro contenido de listas */
+
+.container div button {
+    font-family: Lato-Bold, Arial, Helvetica, sans-serif ;
+    color: var(--white)  ;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 20px;
+    box-shadow: 0px 0px 5px var(--black);
+    padding: 7.5px 10px;
+}
+
+/* Botones */
+
+.enter, .modify, .createList {
+    font-family: Lato-Regular, Arial, Helvetica, sans-serif;
+    background-color: var(--lapis-lazuli) ;
+    transition: background-color 0.3s ease-in-out;
+    color: var(--white) ;
+}
+
+.enter:hover, .modify:hover, .createList:hover {
+    background-color: var(--lapis-lazuli-hover);
+    color: var(--white) ;
+}
+
+.deleteList {
+    background-color: var(--turkey-red);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.deleteList:hover {
+    background-color: var(--engineering-orange);
+}
+
+.enter, .modify, .deleteList {
+    margin: 0 4px;
+}
+
+.btn {
+    border-radius: 20px;
+}
+
+section {
+    padding: 20px;
+}
+
+input {
+    border-radius: 20px;
+    box-shadow: 0 0 5px var(--black);
+    padding: 5px;
+}
+
+.errorMessage {
+    color: var(--engineering-orange);
+    font-size: 0.9em;
+    margin-top: 5px;
+    display: block;
+}
+
+.inputError {
+    border: 2px solid var(--engineering-orange);
+}
+
+.text {
+    color: var(--black);
+    font-family: Lato-Regular, Arial, Helvetica, sans-serif;
+}
+
+@media (min-width: 450px) {
+
+    .containerHeader div div {
+        font-size: 16pt;
+    }
+
+    .containerSection div div {
+        font-size: 10pt;
+        padding: 4px;
+    }
+}
+
+@media (min-width: 768px) {
+    .containerHeader div div {
+        font-size: 18pt;
+    }
+
+    .containerSection div div {
+        font-size: 14pt;
+        padding: 4px;
+    }
+}
+
+@media (min-width: 1000px) {
+    .containerHeader div div {
+        font-size: 20pt;
+    }
+
+    .containerSection div div {
+        font-size: 16pt;
+        padding: 4px;
+    }
+}

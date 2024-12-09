@@ -1,0 +1,169 @@
+
+/* Minimo que ocupe el body toda la altura de ventana */
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--space-cadet);
+    background-image: url("https://www.transparenttextures.com/patterns/navy.png");
+}
+
+/* Hago que el main coja todo el espacio posible, dejando pegado arriba el header y abajo pegado el footer */
+
+main {
+    flex-grow: 1;
+}
+
+/* Div del cuadro principal */
+
+.containerSection {
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    background-color: var(--white);
+    box-shadow: 0 0 5px var(--white);
+    margin: 50px auto;
+}
+
+.containerSection p {
+    text-align: center;
+    padding: 0 10px 10px 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 50px;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+}
+
+.profilePhoto img {
+    height: 92px;
+    width: 92px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 5px var(--black);
+    margin: 0px auto;
+}
+
+.profilePhoto {
+    margin: 0px auto;
+}
+
+input {
+    border-radius: 20px;
+    box-shadow: 0 0 5px var(--black);
+    padding: 5px;
+}
+
+/* ocultamos el input y usamos el label como boton */
+
+input[type="file"] {
+    display: none;
+}
+
+.changePhoto {
+    margin: 20px auto;
+    padding: 5px 10px;
+    border-radius: 20px;
+    box-shadow: 0 0 5px var(--black);
+    cursor: pointer;
+    background-color: var(--lapis-lazuli);
+    color: var(--white) ;
+}
+
+input[type="submit"]{
+    background-color: var(--mikado-yellow);
+    width: 65%;
+    box-shadow: 0 0 5px var(--black);
+    margin: 20px auto 10px auto;
+    padding: 10px;
+    transform: scale(1);
+    transition: transform 0.5s;
+}
+
+input[type="submit"]:hover {
+    transform: scale(1.15);
+}
+
+.errorMessage {
+    color: var(--engineering-orange);
+    font-size: 0.6em;
+    margin-top: 5px;
+    display: block;
+}
+
+.inputError {
+    border: 2px solid var(--engineering-orange);
+}
+
+.text {
+    grid-column: 1/3;
+    font-family: Lato-Regular, Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+form input, form label{
+    font-family: Lato-Regular, Arial, Helvetica, sans-serif;
+    margin: 8px;
+}
+
+@media (min-width: 769px) {
+
+    form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 0.25fr;
+    }
+
+    .profilePhoto {
+        grid-column: 1;
+        grid-row: 1;
+        align-self: center;
+        gap: 20px;
+    }
+    .profilePhoto img {
+        height: 128px;
+        width: 128px;
+    }
+
+    .inputs {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .inputSubmit {
+        grid-column: 1/3;
+        grid-row: 2;
+    }
+
+    .containerSection {
+        width: 700px;
+    }
+
+    label {
+        font-size: 14pt;
+    }
+
+    input{
+        width: 300px;
+        margin: 40px auto 20px auto;
+    }
+
+    input[type="submit"] {
+        margin: 40px auto 20px auto;
+        width: 160px ;
+    }
+    
+    .errorMessage {
+        font-size: 0.7em;
+    }
+
+}
