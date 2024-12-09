@@ -43,7 +43,7 @@
     <!-- Modal para borrar un usuario -->
     <div class="modal fade" id="deleteUserModal" tabindex="-1">
         <div class="modal-dialog">
-            <div class="modal-content" style="border: none;">
+            <div class="modal-content border-0">
                 <div class="modal-header justify-content-center">
                     <h5 class="modal-title" id="deleteUserModalLabel">Delete user</h5>
                 </div>

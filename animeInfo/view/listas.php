@@ -57,7 +57,7 @@
     <!-- Modal para crear una lista -->
     <div class="modal fade" id="createListModal" tabindex="-1">
         <div class="modal-dialog">
-            <div class="modal-content" style="border: none;">
+            <div class="modal-content border-0">
                 <div class="modal-header justify-content-center">
                     <h5 class="modal-title" id="createListModalLabel">Create new list</h5>
                 </div>
@@ -80,7 +80,7 @@
     <!-- Modal para editar una lista -->
     <div class="modal fade" id="editListModal" tabindex="-1">
         <div class="modal-dialog">
-            <div class="modal-content" style="border: none;">
+            <div class="modal-content border-0">
                 <div class="modal-header justify-content-center">
                     <h5 class="modal-title" id="editListModalLabel">Edit list</h5>
                 </div>
@@ -105,7 +105,7 @@
     <!-- Modal para borrar una lista -->
     <div class="modal fade" id="deleteListModal" tabindex="-1">
         <div class="modal-dialog">
-            <div class="modal-content" style="border: none;">
+            <div class="modal-content border-0">
                 <div class="modal-header justify-content-center">
                     <h5 class="modal-title" id="deleteListModalLabel">Delete list</h5>
                 </div>

@@ -24,7 +24,7 @@
     <!-- Modal para borrar cuenta -->
     <div class="modal fade" id="deleteAccountModal" tabindex="-1">
         <div class="modal-dialog">
-            <div class="modal-content" style="border: none;">
+            <div class="modal-content border-0">
                 <div class="modal-header justify-content-center">
                     <h5 class="modal-title" id="deleteAccountModalLabel">Delete account</h5>
                 </div>

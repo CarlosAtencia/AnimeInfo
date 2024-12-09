@@ -88,7 +88,7 @@
                                         <p> <strong><span><?= $comentario['nombreUsuario']; ?></span></strong> </p>
                                         <p><strong><span><?= $comentario['fechaPublicacion']; ?></span></strong></p>
                                     </div>
-                                    <p class="commentText"><?= htmlspecialchars($comentario['texto']); ?></p>
+                                    <p class="commentText"><?= $comentario['texto']; ?></p>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -104,7 +104,7 @@
     <!-- Modal para seleccionar la lista donde añadir el anime -->
     <div class="modal fade" id="seleccionarLista" tabindex="-1">
         <div class="modal-dialog">
-            <div class="modal-content" style="border: none;">
+            <div class="modal-content border-0 ">
                 <div class="modal-header justify-content-center">
                     <h5 class="modal-title" id="seleccionarListaLabel">Select a list</h5>
                 </div>
