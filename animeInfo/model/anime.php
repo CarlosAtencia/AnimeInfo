@@ -161,11 +161,23 @@
 
                 // Por si alguien pone un ID de un manga en vez de un anime ponemos los formatos de anime
                 $format = $animeDatos['format'];
-                $tiposDeAnime = ['TV', 'TV Short', 'Movie', 'OVA', 'ONA', 'Special', 'Music'];
+                $tiposDeAnime = ['TV', 'TV_SHORT', 'MOVIE', 'OVA', 'ONA', 'SPECIAL', 'MUSIC'];
 
                 if (!in_array($format, $tiposDeAnime)) {
                     header("Location: indexController.php");
                     exit();
+                }
+
+                if ($format == 'TV_SHORT') {
+                    $format = 'TV Short';
+                }
+
+                if ($format == 'MUSIC') {
+                    $format = 'Music';
+                }
+
+                if ($format == 'SPECIAL') {
+                    $format = 'Special';
                 }
 
                 // Por si alguien quiere insertar en la URL un id de un anime distinto a FINISHED o RELEASING
@@ -204,7 +216,7 @@
                     'portada' => $animeDatos['coverImage']['large'],
                     'episodios' => $animeDatos['episodes'],
                     'generos' => $animeDatos['genres'],
-                    'formato' => $animeDatos['format'],
+                    'formato' => $format,
                     'estado' => $animeDatos['status'],
                     'fechaInicio' => $fechaInicio,
                     'fechaFin' => $fechaFin
