@@ -20,6 +20,10 @@ $lista = new Lista();
 
 $idLista = $_POST['idLista'];
 
+if (empty($idLista)) {
+    header("Location: ./indexController.php");
+}
+
 if (isset($_POST['borrarAnimeLista'])) {
     $idAnime = $_POST['idAnime'];
     $lista->eliminarAnimeDeLista($idLista, $idAnime);
