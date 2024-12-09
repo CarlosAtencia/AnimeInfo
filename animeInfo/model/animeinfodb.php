@@ -6,7 +6,7 @@ class AnimeInfoDB {
         if (!isset(self::$conexion)) {
             $server = "localhost";
             $usuario = "root";
-            $passwd = "root";
+            $passwd = "";
             $baseDatos = "animeinfo";
 
             // Hacemos un try catch para la conexión a la base de datos

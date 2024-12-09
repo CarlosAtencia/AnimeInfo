@@ -49,7 +49,13 @@
                     <ul class="list">
                         <li><span class="b">Format : </span><span><?= $animeObtenido->__get('tipo'); ?></span></li>
                         <li><span class="b">Episodes : </span><span><?= $animeObtenido->__get('capitulos'); ?></span></li>
-                        <li><span class="b">Genre : </span><span><?= $animeObtenido->__get('genero'); ?></span></li>
+                        <?php
+                        if ($animeObtenido->__get("genero") !== '') {
+                        ?>
+                            <li><span class="b">Genre : </span><span><?= $animeObtenido->__get("genero"); ?></span></li>
+                        <?php
+                        }
+                        ?>
                         <li><span class="b">Start date : </span><span><?= $animeObtenido->__get('fechaInicio'); ?></span></li>
                         <?php
                         if ($animeObtenido->__get("fechaFin") !== null && $animeObtenido->__get("tipo") == "TV") {

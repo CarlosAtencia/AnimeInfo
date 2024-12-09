@@ -292,13 +292,27 @@
         public function obtenerDetallesAnimeDB(int $idAnime): ?anime
         {
             $conexion = AnimeInfoDB::establecerConexion();
-        
+
             // Consulta para obtener los datos del anime en la BBDD
+            // Se realiza un Left Join para obtener los animes que tengan o no tengan generos
             $sql = "
-                SELECT a.idAnime, a.nombreAnime, a.tipo, a.capitulos, a.estado, a.sinopsis, a.fechaInicio, a.fechaFin, a.portada, a.cantidadMeGusta, GROUP_CONCAT(g.genero) AS generos
-                FROM Anime a
-                JOIN AnimeGenero ag ON a.idAnime = ag.Anime_idAnime
-                JOIN Genero g ON ag.Genero_idGenero = g.idGenero
+                SELECT 
+                    a.idAnime, 
+                    a.nombreAnime, 
+                    a.tipo, 
+                    a.capitulos, 
+                    a.estado, 
+                    a.sinopsis, 
+                    a.fechaInicio, 
+                    a.fechaFin, 
+                    a.portada, 
+                    a.cantidadMeGusta,
+                    COALESCE(GROUP_CONCAT(g.genero), '') AS generos
+                FROM anime a
+                LEFT JOIN 
+                    animegenero ag ON a.idAnime = ag.Anime_idAnime
+                LEFT JOIN 
+                    genero g ON ag.Genero_idGenero = g.idGenero
                 WHERE a.idAnime = :idAnime
                 GROUP BY a.idAnime
             ";
@@ -309,18 +323,15 @@
         
             $animeDatos = $consulta->fetch(PDO::FETCH_ASSOC);
         
-            // En caso de obtener los datos los añadimos al objeto
-            if ($animeDatos) {
                 $portadaBase64 = base64_encode($animeDatos['portada']);  // Convertimos la portada a base64
-        
+
                 $generos = explode(',', $animeDatos['generos']);  // Obtenemos los generos en un array separados con una coma
         
                 $anime = new Anime($animeDatos['idAnime'], $animeDatos['nombreAnime'], $animeDatos['tipo'], $animeDatos['capitulos'], $animeDatos['estado'], $animeDatos['sinopsis'], $portadaBase64, $animeDatos['cantidadMeGusta'], implode(", ", $generos),$animeDatos['fechaInicio'], $animeDatos['fechaFin'],);
-        
+            
                 return $anime;
-            }
-        
-            return null;
+            
+
         }
 
 
