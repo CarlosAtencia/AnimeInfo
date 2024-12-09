@@ -97,7 +97,7 @@
             // Ejecutamos la petición GraphQL usando la función que realiza la petición cURL
             $respuesta = realizarPeticionCurl($apiUrl, $query);
         
-            // Decodificamos la respuesta JSON
+            // Obtenemos los datos en json
             $datos = json_decode($respuesta, true);
 
             // Comprobamos si hemos obtenido los datos
@@ -149,15 +149,24 @@
                 }
             }";
         
-            // funcion que realiza la peticion curl
+            // Ejecutamos la petición GraphQL usando la función que realiza la petición cURL
             $respuesta = realizarPeticionCurl($apiUrl, $query);
 
-            // obtenemos los datos en json
+            // Obtenemos los datos en json
             $datos = json_decode($respuesta, true);
         
             // En caso de funcionar todo bien obtenemos el anime
             if (isset($datos['data']['Media'])) {
                 $animeDatos = $datos['data']['Media'];
+
+                // Por si alguien pone un ID de un manga en vez de un anime ponemos los formatos de anime
+                $format = $animeDatos['format'];
+                $tiposDeAnime = ['TV', 'TV Short', 'Movie', 'OVA', 'ONA', 'Special', 'Music'];
+
+                if (!in_array($format, $tiposDeAnime)) {
+                    header("Location: indexController.php");
+                    exit();
+                }
 
                 // Por si alguien quiere insertar en la URL un id de un anime distinto a FINISHED o RELEASING
                 if ($animeDatos['status'] !== 'FINISHED' && $animeDatos['status'] !== "RELEASING") {

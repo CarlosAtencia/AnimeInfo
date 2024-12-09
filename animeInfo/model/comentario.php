@@ -94,7 +94,7 @@ public function crearComentario(string $idUsuario, int $idAnime, string $texto):
         // Insertamos en un array los comentarios hechos por el usuario con los datos necesarios
         $comentariosObtenidos = [];
         foreach ($comentarios as $comentario) {
-            $fechaFormateada = date('d-m-Y', strtotime($comentario['fechaPublicacion'])); // Le ponemos el formato correcto a la fecha
+            $fechaFormateada = date('Y-m-d', strtotime($comentario['fechaPublicacion'])); // Le ponemos el formato correcto a la fecha
             $comentariosObtenidos[] = [
                 'idComentario' => $comentario['idComentario'],
                 'nombreUsuario' => $comentario['nombreUsuario'],
