@@ -116,7 +116,7 @@ public function crearComentario(string $idUsuario, int $idAnime, string $texto):
         $sql = "SELECT c.idComentario, c.texto, c.fechaPublicacion, u.nombreUsuario, a.idAnime, a.nombreAnime, a.portada
                   FROM comenta c
                   JOIN usuario u ON c.Usuario_idUsuario = u.idUsuario
-                  JOIN Anime a ON c.Anime_idAnime = a.idAnime
+                  JOIN anime a ON c.Anime_idAnime = a.idAnime
                   WHERE c.Usuario_idUsuario = :idUsuario
                   ORDER BY c.fechaPublicacion DESC";
 

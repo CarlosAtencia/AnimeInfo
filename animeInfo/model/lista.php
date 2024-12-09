@@ -39,9 +39,9 @@ final class Lista
 
         // Consulta para obtener las listas que contienen el anime que estamos viendo
         $consulta = $conexion->prepare("
-            SELECT DISTINCT Almacena.Lista_idLista
-            FROM Almacena
-            WHERE Almacena.Anime_idAnime = :idAnime
+            SELECT DISTINCT almacena.Lista_idLista
+            FROM almacena
+            WHERE almacena.Anime_idAnime = :idAnime
         ");
 
         $consulta->bindParam(':idAnime', $idAnime, PDO::PARAM_INT);

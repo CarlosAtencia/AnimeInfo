@@ -40,7 +40,7 @@
             $conexion = AnimeInfoDB::establecerConexion();
         
             // Consulta para obtener un máximo de 18 géneros
-            $consulta = $conexion->prepare("SELECT idGenero, genero FROM Genero LIMIT 18");
+            $consulta = $conexion->prepare("SELECT idGenero, genero FROM genero LIMIT 18");
             $consulta->execute();
         
             return $consulta->fetchAll(PDO::FETCH_ASSOC) ?: null;
@@ -53,7 +53,7 @@
             $conexion = AnimeInfoDB::establecerConexion();
 
             // Consulta para obtener si existe en base a la cantidad que haya
-            $consulta = $conexion->prepare("SELECT COUNT(*) FROM Anime WHERE idAnime = :idAnime");
+            $consulta = $conexion->prepare("SELECT COUNT(*) FROM anime WHERE idAnime = :idAnime");
             $consulta->bindParam(':idAnime',$idAnime,PDO::PARAM_INT);
             $consulta->execute();
 
@@ -237,18 +237,28 @@
             $imagenBlob = file_get_contents($animeDatos['portada']); // Convertimos la portada a BLOB
         
             $sinopsisLimpia = strip_tags($animeDatos['descripcion']); // Eliminamos las etiquetas html de la sinopsis
+	    $sinopsisLimpia = substr($sinopsisLimpia, 0, 1000); // Limitamos a 1000 caracteres
+
+            $capitulos = $animeDatos['episodios'];
+
+            if (is_null($capitulos)) {
+                $capitulos = 0;
+            }
         
             // Consulta para añadir el anime a la base de datos
-            $consulta = $conexion->prepare("INSERT INTO Anime 
+            $consulta = $conexion->prepare("INSERT INTO anime 
                 (idAnime, nombreAnime, tipo, capitulos, estado, sinopsis, portada, cantidadMeGusta, fechaInicio, fechaFin) 
                 VALUES (:idAnime, :nombreAnime, :tipo, :capitulos, :estado, :sinopsis, :portada, :cantidadMeGusta, :fechaInicio, :fechaFin)");
         
             $cantidadMeGusta = 0;  // Indicamos por defecto que tendrá 0 me gusta
+
+            // Comprobamos si es null, en caso de ser así, ponemos 0 para evitar errores
+            $capitulos = isset($animeDatos['episodios']) && $animeDatos['episodios'] !== null ? $animeDatos['episodios'] : 0;
         
             $consulta->bindParam(':idAnime', $animeDatos['id'], PDO::PARAM_INT);
             $consulta->bindParam(':nombreAnime', $animeDatos['nombreAnime'], PDO::PARAM_STR);
             $consulta->bindParam(':tipo', $animeDatos['formato'], PDO::PARAM_STR);
-            $consulta->bindParam(':capitulos', $animeDatos['episodios'], PDO::PARAM_INT);
+            $consulta->bindParam(':capitulos', $capitulos, PDO::PARAM_INT);
             $consulta->bindParam(':estado', $animeDatos['estado'], PDO::PARAM_STR);
             $consulta->bindParam(':sinopsis', $sinopsisLimpia, PDO::PARAM_STR);
             $consulta->bindParam(':portada', $imagenBlob, PDO::PARAM_LOB);
@@ -263,7 +273,7 @@
         
             foreach ($idGeneros as $genero) {
                 // Consulta para comprobar si cada genero existe en la base de datos
-                $consultaGenero = $conexion->prepare("SELECT idGenero FROM Genero WHERE genero = :genero");
+                $consultaGenero = $conexion->prepare("SELECT idGenero FROM genero WHERE genero = :genero");
                 $consultaGenero->bindParam(':genero', $genero, PDO::PARAM_STR);
                 $consultaGenero->execute();
                 $resultadoGenero = $consultaGenero->fetch(PDO::FETCH_ASSOC);
@@ -273,14 +283,14 @@
                     $idGeneroExistente = $resultadoGenero['idGenero'];
                 } else {
                     // Si el género no existe entonces lo insertamos
-                    $insertarGenero = $conexion->prepare("INSERT INTO Genero (genero) VALUES (:genero)");
+                    $insertarGenero = $conexion->prepare("INSERT INTO genero (genero) VALUES (:genero)");
                     $insertarGenero->bindParam(':genero', $genero, PDO::PARAM_STR);
                     $insertarGenero->execute();
                     $idGeneroExistente = (int)$conexion->lastInsertId();
                 }
         
                 // Insertamos la relación entre el anime y el género en la BBDD
-                $relacionarGenero = $conexion->prepare("INSERT INTO AnimeGenero (Anime_idAnime, Genero_idGenero) VALUES (:Anime_idAnime, :Genero_idGenero)");
+                $relacionarGenero = $conexion->prepare("INSERT INTO animegenero (Anime_idAnime, Genero_idGenero) VALUES (:Anime_idAnime, :Genero_idGenero)");
                 $relacionarGenero->bindParam(':Anime_idAnime', $idAnime, PDO::PARAM_INT);
                 $relacionarGenero->bindParam(':Genero_idGenero', $idGeneroExistente, PDO::PARAM_INT);
                 $relacionarGenero->execute();
@@ -289,50 +299,82 @@
         
 
         // Método para obtener los animes de la base de datos
-        public function obtenerDetallesAnimeDB(int $idAnime): ?anime
+        public function obtenerDetallesAnimeDB(int $idAnime): ?Anime
         {
-            $conexion = AnimeInfoDB::establecerConexion();
-
-            // Consulta para obtener los datos del anime en la BBDD
-            // Se realiza un Left Join para obtener los animes que tengan o no tengan generos
-            $sql = "
-                SELECT 
-                    a.idAnime, 
-                    a.nombreAnime, 
-                    a.tipo, 
-                    a.capitulos, 
-                    a.estado, 
-                    a.sinopsis, 
-                    a.fechaInicio, 
-                    a.fechaFin, 
-                    a.portada, 
-                    a.cantidadMeGusta,
-                    COALESCE(GROUP_CONCAT(g.genero), '') AS generos
-                FROM anime a
-                LEFT JOIN 
-                    animegenero ag ON a.idAnime = ag.Anime_idAnime
-                LEFT JOIN 
-                    genero g ON ag.Genero_idGenero = g.idGenero
-                WHERE a.idAnime = :idAnime
-                GROUP BY a.idAnime
-            ";
+            try {
+                // Establecer conexión a la base de datos
+                $conexion = AnimeInfoDB::establecerConexion();
         
-            $consulta = $conexion->prepare($sql);
-            $consulta->bindParam(':idAnime', $idAnime, PDO::PARAM_INT);
-            $consulta->execute();
-        
-            $animeDatos = $consulta->fetch(PDO::FETCH_ASSOC);
-        
-                $portadaBase64 = base64_encode($animeDatos['portada']);  // Convertimos la portada a base64
-
-                $generos = explode(',', $animeDatos['generos']);  // Obtenemos los generos en un array separados con una coma
-        
-                $anime = new Anime($animeDatos['idAnime'], $animeDatos['nombreAnime'], $animeDatos['tipo'], $animeDatos['capitulos'], $animeDatos['estado'], $animeDatos['sinopsis'], $portadaBase64, $animeDatos['cantidadMeGusta'], implode(", ", $generos),$animeDatos['fechaInicio'], $animeDatos['fechaFin'],);
+                // Consulta para obtener los datos del anime en la BBDD
+                // Se realiza un Left Join para obtener los animes que tengan o no tengan géneros
+                $sql = "
+                    SELECT 
+                        a.idAnime, 
+                        a.nombreAnime, 
+                        a.tipo, 
+                        a.capitulos, 
+                        a.estado, 
+                        a.sinopsis, 
+                        a.fechaInicio, 
+                        a.fechaFin, 
+                        a.portada, 
+                        a.cantidadMeGusta,
+                        COALESCE(GROUP_CONCAT(g.genero), '') AS generos
+                    FROM anime a
+                    LEFT JOIN 
+                        animegenero ag ON a.idAnime = ag.Anime_idAnime
+                    LEFT JOIN 
+                        genero g ON ag.Genero_idGenero = g.idGenero
+                    WHERE a.idAnime = :idAnime
+                    GROUP BY a.idAnime
+                ";
             
+                // Preparar y ejecutar la consulta
+                $consulta = $conexion->prepare($sql);
+                $consulta->bindParam(':idAnime', $idAnime, PDO::PARAM_INT);
+                $consulta->execute();
+            
+                // Obtener los resultados de la consulta
+                $animeDatos = $consulta->fetch(PDO::FETCH_ASSOC);
+        
+                if (!$animeDatos) {
+                    // Si no se encuentran datos, retornamos null
+                    return null;
+                }
+        
+                // Convertir la portada a base64
+                $portadaBase64 = base64_encode($animeDatos['portada']);
+        
+                // Obtener los géneros como un array
+                $generos = explode(',', $animeDatos['generos']);
+        
+                // Crear una instancia de la clase Anime
+                $anime = new Anime(
+                    $animeDatos['idAnime'],
+                    $animeDatos['nombreAnime'],
+                    $animeDatos['tipo'],
+                    $animeDatos['capitulos'],
+                    $animeDatos['estado'],
+                    $animeDatos['sinopsis'],
+                    $portadaBase64,
+                    $animeDatos['cantidadMeGusta'],
+                    implode(", ", $generos),
+                    $animeDatos['fechaInicio'],
+                    $animeDatos['fechaFin']
+                );
+        
                 return $anime;
-            
-
+            } catch (PDOException $e) {
+                // Manejo de error en la base de datos
+                error_log("Error al obtener detalles del anime: " . $e->getMessage());
+                return null;
+            } catch (Exception $e) {
+                // Manejo de error general
+                error_log("Error general al obtener detalles del anime: " . $e->getMessage());
+                return null;
+            }
         }
+        
 
 
         // Método para obtener los animes de una lista
@@ -343,10 +385,10 @@
             // Consulta para obtener los animes de una lista
             $sql = "
             SELECT a.idAnime, a.nombreAnime, a.portada
-            FROM animeInfo.Anime a
-            JOIN animeInfo.Almacena al ON a.idAnime = al.Anime_idAnime
-            JOIN animeInfo.Lista l ON al.Lista_idLista = l.idLista
-            JOIN animeInfo.Usuario u ON l.Usuario_idUsuario = u.idUsuario
+            FROM animeinfo.anime a
+            JOIN animeinfo.almacena al ON a.idAnime = al.Anime_idAnime
+            JOIN animeinfo.lista l ON al.Lista_idLista = l.idLista
+            JOIN animeinfo.usuario u ON l.Usuario_idUsuario = u.idUsuario
             WHERE l.idLista = :idLista
             AND u.idUsuario = :idUsuario;
             ";
@@ -401,7 +443,7 @@
                 INSERT INTO darmegusta (Anime_idAnime, Usuario_idUsuario)
                 VALUES (:idAnime, :idUsuario);
         
-                UPDATE Anime
+                UPDATE anime
                 SET cantidadMeGusta = (
                     SELECT COUNT(*) FROM darmegusta WHERE Anime_idAnime = :idAnime
                 )
@@ -424,7 +466,7 @@
                 DELETE FROM darmegusta
                 WHERE Anime_idAnime = :idAnime AND Usuario_idUsuario = :idUsuario;
         
-                UPDATE Anime
+                UPDATE anime
                 SET cantidadMeGusta = (
                     SELECT COUNT(*) FROM darmegusta WHERE Anime_idAnime = :idAnime
                 )
@@ -445,7 +487,7 @@
             // Consulta para mostrar los animes que tenga me gusta el usuario
             $sql = "SELECT a.idAnime, a.nombreAnime, a.portada 
                     FROM darmegusta m
-                    JOIN Anime a ON m.Anime_idAnime = a.idAnime
+                    JOIN anime a ON m.Anime_idAnime = a.idAnime
                     WHERE m.Usuario_idUsuario = :idUsuario";
             
             $consulta = $conexion->prepare($sql);

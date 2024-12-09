@@ -21,7 +21,7 @@ $title = "Index";
 
 $anime = new Anime();
 
-// Obtenemos los generos para luego mostrarlos como options
+
 $generos = $anime->obtenerGeneros();
 
 require_once "../view/templates/head.php";

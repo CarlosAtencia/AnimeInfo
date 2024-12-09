@@ -60,6 +60,11 @@ if (isset($_POST['guardarEnLista'])) {
     $idAnime = $_POST['idAnime'];
     $idLista = $_POST['idLista'];
 
+    if (is_null($idLista)) {
+        header("Location: ./animeController.php?id=".$idAnime."");
+        exit();
+    }
+
     Lista::guardarAnimeLista($idLista, $idAnime);
 }
 
