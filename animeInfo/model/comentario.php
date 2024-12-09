@@ -25,7 +25,7 @@ public function crearComentario(string $idUsuario, int $idAnime, string $texto):
     // Limpiamos los datos
     $texto = comprobarDatos($texto);
 
-    $comentarioRegex = '/(?=\S)^([A-z¿?¡!\-_0-9\s]){10,400}(?<=\S)$/';
+    $comentarioRegex = '/^(?=\S)([A-z¿?¡!\-_0-9\s]){10,400}(?<=\S)$/';
 
     if (comprobarVacio(array($texto))) {
 
